@@ -1,0 +1,232 @@
+def criar_formulario_de_preco(telaCalcular, tamanho_padx, tamanho_pady):
+    colunaLabel = 0
+    colunaCampoTexto = 0
+    linhaLabel = 7
+    linhaCampoTexto = linhaLabel + 1
+
+
+    #Máquina
+    label_Máquina = funcoes.criar_Label(telaCalcular, "Máquina:")
+    label_Máquina.grid(column= colunaLabel, row= linhaLabel, padx= tamanho_padx, pady= tamanho_pady)
+
+    campo_Máquina = funcoes.criar_campo_de_texto(telaCalcular)
+    campo_Máquina.grid(column= colunaCampoTexto, row= linhaCampoTexto, padx= tamanho_padx, pady= tamanho_pady)
+
+    #linhaLabelCampo += 1
+    colunaLabel += 1
+    colunaCampoTexto += 1
+
+
+
+    #Quantidade de horas
+    label_QuantHoras = funcoes.criar_Label(telaCalcular, "Quant. de horas:")
+    label_QuantHoras.grid(column= colunaLabel, row=linhaLabel, padx= tamanho_padx, pady= tamanho_pady)
+
+    campo_QuantHoras = funcoes.criar_campo_de_texto(telaCalcular)
+    campo_QuantHoras.grid(column= colunaCampoTexto, row=linhaCampoTexto, padx= tamanho_padx, pady= tamanho_pady)
+
+    #linhaLabelCampo += 1
+    colunaLabel += 1
+    colunaCampoTexto += 1
+
+
+
+    #Preço da Matéria Prima
+    label_PrecoMP = funcoes.criar_Label(telaCalcular, "Preço da MP:")
+    label_PrecoMP.grid(column=colunaLabel, row=linhaLabel, padx= tamanho_padx, pady= tamanho_pady)
+
+    campo_PrecoMP = funcoes.criar_campo_de_texto(telaCalcular)
+    campo_PrecoMP.grid(column=colunaCampoTexto, row=linhaCampoTexto, padx= tamanho_padx, pady= tamanho_pady)
+
+    #linhaLabelCampo += 1
+    colunaLabel += 1
+    colunaCampoTexto += 1
+
+
+
+    #Preço do tratamento térmico
+    label_PrecoTT = funcoes.criar_Label(telaCalcular, "Preço do TT:")
+    label_PrecoTT.grid(column=colunaLabel, row=linhaLabel, padx= tamanho_padx, pady= tamanho_pady)
+
+    campo_PrecoTT = funcoes.criar_campo_de_texto(telaCalcular)
+    campo_PrecoTT.grid(column=colunaCampoTexto, row=linhaCampoTexto, padx= tamanho_padx, pady= tamanho_pady)
+
+    #linhaLabelCampo += 1
+    colunaLabel += 1
+    colunaCampoTexto += 1
+
+
+
+    #Preço do Revestimento
+    label_PrecoRevestimento = funcoes.criar_Label(telaCalcular, "Preço do Revestimento:")
+    label_PrecoRevestimento.grid(column=colunaLabel, row=linhaLabel, padx= tamanho_padx, pady= tamanho_pady)
+
+    campo_PrecoRevestimento = funcoes.criar_campo_de_texto(telaCalcular)
+    campo_PrecoRevestimento.grid(column=colunaCampoTexto, row=linhaCampoTexto, padx= tamanho_padx, pady= tamanho_pady)
+
+    linhaLabel += 2
+    linhaCampoTexto += 2
+    colunaLabel = 0
+    colunaCampoTexto = 0
+
+
+    #Frete
+    label_Frete = funcoes.criar_Label(telaCalcular, "Frete:")
+    label_Frete.grid(column=colunaLabel, row=linhaLabel, padx= tamanho_padx, pady= tamanho_pady)
+
+    campo_Frete = funcoes.criar_campo_de_texto(telaCalcular)
+    campo_Frete.grid(column=colunaCampoTexto, row=linhaCampoTexto, padx= tamanho_padx, pady= tamanho_pady)
+
+    #Pula a coluna
+    # linhaLabelCampo = 2
+    # colunaLabel = 4
+    # colunaCampoTexto = 5
+    colunaLabel += 1
+    colunaCampoTexto += 1
+
+    
+
+    #%Insumos
+    label_Insumos = funcoes.criar_Label(telaCalcular, "% de Insumos:")
+    label_Insumos.grid(column=colunaLabel, row=linhaLabel, padx= tamanho_padx, pady= tamanho_pady)
+
+    campo_Insumos = funcoes.criar_campo_de_texto(telaCalcular)
+    campo_Insumos.grid(column=colunaCampoTexto, row=linhaCampoTexto, padx= tamanho_padx, pady= tamanho_pady)
+
+    #linhaLabelCampo += 1
+    colunaLabel += 1
+    colunaCampoTexto += 1
+
+
+    #%Desconto
+    label_Desconto = funcoes.criar_Label(telaCalcular, "% de Desconto:")
+    label_Desconto.grid(column=colunaLabel, row=linhaLabel, padx= tamanho_padx, pady= tamanho_pady)
+
+    campo_Desconto = funcoes.criar_campo_de_texto(telaCalcular)
+    campo_Desconto.grid(column=colunaCampoTexto, row=linhaCampoTexto, padx= tamanho_padx, pady= tamanho_pady)
+
+    #linhaLabelCampo += 1
+    colunaLabel += 1
+    colunaCampoTexto += 1
+
+
+    #%Imposto
+    label_Imposto = funcoes.criar_Label(telaCalcular, "% de Imposto:")
+    label_Imposto.grid(column=colunaLabel, row=linhaLabel, padx= tamanho_padx, pady= tamanho_pady)
+
+    campo_Imposto = funcoes.criar_campo_de_texto(telaCalcular)
+    campo_Imposto.grid(column=colunaCampoTexto, row=linhaCampoTexto, padx= tamanho_padx, pady= tamanho_pady)
+
+
+def criar_formulario_de_dados_orcamento(telaCalcular, tamanho_padx, tamanho_pady):
+    colunaLabel = 0
+    colunaCampoTexto = 0
+    linhaLabel = 2
+    linhaCampoTexto = linhaLabel + 1
+
+
+
+    #Desenho
+    label_numeroDesenho = funcoes.criar_Label(telaCalcular, "N° do desenho:")
+    label_numeroDesenho.grid(column= colunaLabel, row=linhaLabel, padx= tamanho_padx, pady= tamanho_pady)
+
+    campo_NumeroDesenho = funcoes.criar_campo_de_texto(telaCalcular)
+    campo_NumeroDesenho.grid(column= colunaCampoTexto, row=linhaCampoTexto, padx= tamanho_padx, pady= tamanho_pady)
+
+    #linhaLabelCampo += 1
+    colunaLabel += 1
+    colunaCampoTexto += 1
+
+
+    #Nome da Peça
+    label_NomePeca = funcoes.criar_Label(telaCalcular, "Nome da peça:")
+    label_NomePeca.grid(column=colunaLabel, row=linhaLabel, padx= tamanho_padx, pady= tamanho_pady)
+
+    campo_NomePeca = funcoes.criar_campo_de_texto(telaCalcular)
+    campo_NomePeca.grid(column=colunaCampoTexto, row=linhaCampoTexto, padx= tamanho_padx, pady= tamanho_pady)
+
+    #linhaLabelCampo += 1
+    colunaLabel += 1
+    colunaCampoTexto += 1
+
+
+    #Quantidade
+    label_Quantidade = funcoes.criar_Label(telaCalcular, "Quantidade:")
+    label_Quantidade.grid(column=colunaLabel, row=linhaLabel, padx= tamanho_padx, pady= tamanho_pady)
+
+    campo_Quantidade = funcoes.criar_campo_de_texto(telaCalcular)
+    campo_Quantidade.grid(column=colunaCampoTexto, row=linhaCampoTexto, padx= tamanho_padx, pady= tamanho_pady)
+
+    #linhaLabelCampo += 1
+    colunaLabel += 1
+    colunaCampoTexto += 1
+
+
+
+    #Cliente
+    label_cliente = funcoes.criar_Label(telaCalcular, "Cliente:")
+    label_cliente.grid(column= colunaLabel, row= linhaLabel, padx= tamanho_padx, pady= tamanho_pady)
+
+    campo_cliente = funcoes.criar_campo_de_texto(telaCalcular)
+    campo_cliente.grid(column= colunaCampoTexto, row= linhaCampoTexto, padx= tamanho_padx, pady= tamanho_pady)
+
+    #linhaLabelCampo += 1
+    linhaLabel += 2
+    linhaCampoTexto += 2
+    colunaLabel = 0
+    colunaCampoTexto = 0
+    
+
+
+    #Data
+    label_Data = funcoes.criar_Label(telaCalcular, "Data do pedido:")
+    label_Data.grid(column=colunaLabel, row=linhaLabel, padx= tamanho_padx, pady= tamanho_pady)
+
+    campo_Data = funcoes.criar_campo_de_texto(telaCalcular)
+    campo_Data.grid(column=colunaCampoTexto, row=linhaCampoTexto, padx= tamanho_padx, pady= tamanho_pady)
+
+    colunaLabel += 1
+    colunaCampoTexto += 1
+    
+
+
+    #Validade
+    label_Validade = funcoes.criar_Label(telaCalcular, "Data de validade:")
+    label_Validade.grid(column=colunaLabel, row=linhaLabel, padx= tamanho_padx, pady= tamanho_pady)
+
+    campo_Validade = funcoes.criar_campo_de_texto(telaCalcular)
+    campo_Validade.grid(column=colunaCampoTexto, row=linhaCampoTexto, padx= tamanho_padx, pady= tamanho_pady)
+
+
+
+
+
+def criar_formulario_de_maquinas(telaCalcular, tamanho_padx, tamanho_pady):
+    global campos_maquinas, var_maquina
+    caminho_arquivo = "./data/maquinas.json"
+    df_maquinas = pd.read_json(caminho_arquivo)
+
+    menu_maquina, var_maquina = funcoes.criar_menu_dropdown(telaCalcular, df_maquinas)
+    campos_maquinas["Máquina"] = menu_maquina  
+
+    campo_horas = funcoes.criar_campo_de_texto(telaCalcular)
+    campos_maquinas["Quantidade de Horas"] = campo_horas
+
+    # Coluna e Linha iniciais
+    coluna = 0
+    linha = 7
+
+    for nome, campo in campos_maquinas.items():
+        label = Label(telaCalcular, text=nome + ":")
+        label.grid(column=coluna, row=linha, padx=tamanho_padx, pady=tamanho_pady)
+
+        campo.grid(column=coluna, row=linha + 1, padx=tamanho_padx, pady=tamanho_pady)
+
+        coluna += 1  # Avança a coluna para o próximo item
+
+
+
+
+
+
+

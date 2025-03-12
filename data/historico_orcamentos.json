@@ -1,0 +1,46 @@
+[
+    {
+        "dadosOrcamento": {
+            "numeroOrcamento": 1,
+            "numeroDesenho": "100",
+            "nomePeca": "Parafuso especial",
+            "quantidadePecas": 20,
+            "cliente": "Lojinha do Araujo",
+            "dataPedido": "12/03/2025",
+            "dataValidade": "14/04/2025"
+        },
+        "maquinas": [
+            {
+                "maquina": {
+                    "id": 1,
+                    "nome": "Máquina A",
+                    "precoHoraMaquina": 50
+                },
+                "quantidadeHorasMaquina": 10.0
+            },
+            {
+                "maquina": {
+                    "id": 2,
+                    "nome": "Máquina B",
+                    "precoHoraMaquina": 70
+                },
+                "quantidadeHorasMaquina": 5.0
+            }
+        ],
+        "itensOrcamento": {
+            "precoMP": 2000.0,
+            "precoTT": 550.0,
+            "precoRevestimento": 500.0,
+            "frete": 110.0,
+            "porcentagemInsumos": 5.0,
+            "porcentagemDesconto": 5.0,
+            "porcentagemImposto": 8.0
+        },
+        "precosOrcamentos": {
+            "custoTotal": 4210.5,
+            "valorComDesconto": 3999.97,
+            "valorUnitario": 4347.79,
+            "valorFinal": 86955.8
+        }
+    }
+]
