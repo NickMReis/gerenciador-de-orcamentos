@@ -44,8 +44,8 @@ botao_historico = funcoes.criar_btn(telaInicial, "Ver orçamentos", lambda: func
 
 #Chamada de telaMaquinas, telaCalculo e telaHistorico
 telaMaquinas = telaMaq.criar_Tela(janelaPrincipal, lambda: funcoes.voltarTelaAnterior(telaInicial, telaMaquinas))
-telaCalculo = telaCalc.criar_Tela(janelaPrincipal, lambda: funcoes.voltarTelaAnterior(telaInicial, telaCalculo))
 telaHistorico = telaHist.criar_Tela(janelaPrincipal, lambda: funcoes.voltarTelaAnterior(telaInicial, telaHistorico))
+telaCalculo = telaCalc.criar_Tela(janelaPrincipal, lambda: funcoes.voltarTelaAnterior(telaInicial, telaCalculo))
 
 
 
@@ -82,6 +82,6 @@ janelaPrincipal.mainloop()
 
 
 #Coisas para consertar
-#1. Consertar a criação dos menu dropdown quando não existe máquina cadastrada no sistema.
+#1. Consertar a criação do menu dropdown quando não existe máquina cadastrada no sistema.
 
 #2. Verificar tratamentos de erros em algumas partes.

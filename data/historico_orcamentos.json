@@ -1,13 +1,57 @@
 [
     {
         "dadosOrcamento": {
+            "numeroOrcamento": 2,
+            "numeroDesenho": "120",
+            "nomePeca": "Prego especial",
+            "quantidadePecas": 30,
+            "cliente": "Loja do Fernando",
+            "dataPedido": "13/03/2025",
+            "dataValidade": "12/04/2025"
+        },
+        "maquinas": [
+            {
+                "maquina": {
+                    "id": 4,
+                    "nome": "Máquina D",
+                    "precoHoraMaquina": 75
+                },
+                "quantidadeHorasMaquina": 20.0
+            },
+            {
+                "maquina": {
+                    "id": 9,
+                    "nome": "Máquina I",
+                    "precoHoraMaquina": 150
+                },
+                "quantidadeHorasMaquina": 3.0
+            }
+        ],
+        "itensOrcamento": {
+            "precoMP": 2000.0,
+            "precoTT": 400.0,
+            "precoRevestimento": 700.0,
+            "frete": 120.0,
+            "porcentagemInsumos": 5.0,
+            "porcentagemDesconto": 0.0,
+            "porcentagemImposto": 10.0
+        },
+        "precosOrcamentos": {
+            "custoTotal": 5428.5,
+            "valorComDesconto": 5428.5,
+            "valorUnitario": 6031.67,
+            "valorFinal": 180950.1
+        }
+    },
+    {
+        "dadosOrcamento": {
             "numeroOrcamento": 1,
-            "numeroDesenho": "100",
-            "nomePeca": "Parafuso especial",
+            "numeroDesenho": "800",
+            "nomePeca": "Engrenagem especial",
             "quantidadePecas": 20,
-            "cliente": "Lojinha do Araujo",
-            "dataPedido": "12/03/2025",
-            "dataValidade": "14/04/2025"
+            "cliente": "Empresa do Jair",
+            "dataPedido": "13/03/2025",
+            "dataValidade": "01/04/2025"
         },
         "maquinas": [
             {
@@ -16,31 +60,23 @@
                     "nome": "Máquina A",
                     "precoHoraMaquina": 50
                 },
-                "quantidadeHorasMaquina": 10.0
-            },
-            {
-                "maquina": {
-                    "id": 2,
-                    "nome": "Máquina B",
-                    "precoHoraMaquina": 70
-                },
-                "quantidadeHorasMaquina": 5.0
+                "quantidadeHorasMaquina": 25.0
             }
         ],
         "itensOrcamento": {
             "precoMP": 2000.0,
-            "precoTT": 550.0,
-            "precoRevestimento": 500.0,
-            "frete": 110.0,
+            "precoTT": 1200.0,
+            "precoRevestimento": 600.0,
+            "frete": 100.0,
             "porcentagemInsumos": 5.0,
             "porcentagemDesconto": 5.0,
-            "porcentagemImposto": 8.0
+            "porcentagemImposto": 10.0
         },
         "precosOrcamentos": {
-            "custoTotal": 4210.5,
-            "valorComDesconto": 3999.97,
-            "valorUnitario": 4347.79,
-            "valorFinal": 86955.8
+            "custoTotal": 5407.5,
+            "valorComDesconto": 5137.12,
+            "valorUnitario": 5707.91,
+            "valorFinal": 114158.2
         }
     }
 ]

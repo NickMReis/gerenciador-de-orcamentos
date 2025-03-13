@@ -71,8 +71,6 @@ def criar_tabela_de_maquinas(telaMaquinas, df_maquinas):
 
 #Ações dos botões na tela Máquina
 def add_Maquina(telaMaquinas, tabela_maquinas):
-    global globalJanelaPrincipal, globalVoltarTela
-
     def processar(nome, precoHora):
         nonlocal df_maquinas
         nonlocal tabela_maquinas

@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox
 import pandas as pd
 import json
 import funcoes
@@ -8,6 +9,7 @@ from classes.classesOrcamento.DadosOrcamento import DadosOrcamento
 from classes.classesOrcamento.ListaMaquinasOrcamento import ListaMaquinasOrcamento
 from classes.classesOrcamento.ItensOrcamento import ItensOrcamento
 from classes.classesOrcamento.PrecosOrcamento import PrecosOrcamento
+
 
 
 #Dicionários de campos de texto
@@ -100,7 +102,7 @@ def criar_formulario_de_dados_orcamento(telaCalcular, tamanho_padx, tamanho_pady
 
 
 def criar_formulario_de_maquinas(telaCalcular, tamanho_padx, tamanho_pady):
-    global campos_maquinas, lista_maquinas
+    global lista_maquinas
 
     def adicionar_maquina():
         caminho_arquivo = "./data/maquinas.json"
@@ -169,8 +171,6 @@ def criar_formulario_de_maquinas(telaCalcular, tamanho_padx, tamanho_pady):
 
     botao_excluir = funcoes.criar_btn(frame_btns_maquinas, "Excluir Máquina", excluir_maquina, 1, 0, tamanho_padx, tamanho_pady)
 
-    #botao_atualizar = funcoes.criar_btn(frame_btns_maquinas, "Atualizar Menu", atualizarMenu, 2, 0, tamanho_padx, tamanho_pady)
-
     
 
 def criar_formulario_de_preco(telaCalcular, tamanho_padx, tamanho_pady):
@@ -210,7 +210,7 @@ def criar_formulario_de_preco(telaCalcular, tamanho_padx, tamanho_pady):
 
 #Ações dos botões
 def calcularOrcamento(texto_resultado):
-    global campos_dados_orcamento, campos_precos, campos_maquinas
+    global campos_dados_orcamento, campos_precos
 
     caminho_arquivo = "./data/maquinas.json"
     df_maquinas = pd.read_json(caminho_arquivo)
@@ -268,14 +268,22 @@ def limparCamposTexto():
 
 
 def salvarOrcamento():
-    global campos_dados_orcamento, campos_precos, campos_maquinas
+    global campos_dados_orcamento, campos_precos
 
     caminho_arquivo_maquinas = "./data/maquinas.json"
     df_maquinas = pd.read_json(caminho_arquivo_maquinas)
 
+    #Lê o arquivo para evitar sobrescrever
+    caminho_arquivo_historico = "./data/historico_orcamentos.json"
+    try:
+        with open(caminho_arquivo_historico, "r", encoding="utf-8") as arquivo:
+            historico = json.load(arquivo)
+    except (FileNotFoundError, json.JSONDecodeError):
+        historico = []
+
 
     #Dados Orçamento
-    dadosOrcamento, quantidadePecas = obterDadosOrcamento()
+    dadosOrcamento, quantidadePecas = obterDadosOrcamento(historico)
 
     #Lista Maquinas
     maquinas = obterDadosListaMaquinas(df_maquinas)
@@ -302,27 +310,30 @@ def salvarOrcamento():
         "precosOrcamentos": orcamento.precosOrcamento.__dict__,
     }
 
-    #Lê o arquivfo para evitar sobrescrever 
-    caminho_arquivo_historico = "./data/historico_orcamentos.json"
 
-    try:
-        with open(caminho_arquivo_historico, "r", encoding="utf-8") as arquivo:
-            historico = json.load(arquivo)
-    except (FileNotFoundError, json.JSONDecodeError):
-        historico = []
-
-    historico.append(orcamento_dict)
+    historico.insert(0, orcamento_dict)
     
     # Salva no arquivo JSON
     with open("./data/historico_orcamentos.json", "w", encoding="utf-8") as arquivo:
         json.dump(historico, arquivo, indent=4, ensure_ascii=False)
 
+    messagebox.showinfo("Orçamento salvo", "O orçamento foi salvo com sucesso!")
+    limparCamposTexto()
+
+
 
 
 #Obter dados e criar objetos
-def obterDadosOrcamento():
+def obterDadosOrcamento(historico):
+    df_historico = pd.DataFrame(historico)
+
     #Dados Orçamento
-    numeroOrcamento = 1 #implementar a logica de sempre que criar um novo ser um número a mais
+    numeroOrcamento = 1
+
+    if len(df_historico) != 0:
+        df_dados_orcamento = pd.DataFrame(df_historico["dadosOrcamento"].tolist())
+        numeroOrcamento = int(df_dados_orcamento["numeroOrcamento"].max()) + 1  
+
     numeroDesenho = campos_dados_orcamento["N° do desenho"].get() or 0
     nomePeca = campos_dados_orcamento["Nome da Peça"].get() or ""
     quantidadePecas = funcoes.verificarEntrada(campos_dados_orcamento["Quantidade"].get() or 0)
