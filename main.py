@@ -24,7 +24,7 @@ telaInicial.pack(fill="both", expand=True)
 
 
 #Título e Orientação
-label_titulo = Label(telaInicial, text="Calculadora de preço de serviços", font=font_titulo)
+label_titulo = Label(telaInicial, text="Calculadora de orçamentos", font=font_titulo)
 label_titulo.grid(column=0, row=0, padx=10, pady=10)
 
 label_orientacao = Label(telaInicial, text="Clique em um dos botões abaixo. Você pode visualizar os dados das máquinas disponíveis, calcular serviços e ver histórico.")

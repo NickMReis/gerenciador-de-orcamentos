@@ -1,7 +1,6 @@
 class DadosOrcamento:
-    def __init__(self, numeroOrcamento, numeroDesenho, nomePeca, quantidadePecas,
+    def __init__(self, numeroDesenho, nomePeca, quantidadePecas,
                  cliente, dataPedido, dataValidade):
-        self.numeroOrcamento = numeroOrcamento
         self.numeroDesenho = numeroDesenho
         self.nomePeca = nomePeca
         self.quantidadePecas = quantidadePecas

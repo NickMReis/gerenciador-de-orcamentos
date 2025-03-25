@@ -2,46 +2,46 @@
     {
         "id":1,
         "nome":"M\u00e1quina A",
-        "precoHoraMaquina":50
+        "precoHoraMaquina":50.0
     },
     {
         "id":2,
         "nome":"M\u00e1quina B",
-        "precoHoraMaquina":70
+        "precoHoraMaquina":70.0
     },
     {
         "id":3,
         "nome":"M\u00e1quina C",
-        "precoHoraMaquina":100
+        "precoHoraMaquina":100.0
     },
     {
         "id":4,
         "nome":"M\u00e1quina D",
-        "precoHoraMaquina":75
+        "precoHoraMaquina":60.0
     },
     {
         "id":5,
         "nome":"M\u00e1quina E",
-        "precoHoraMaquina":120
+        "precoHoraMaquina":120.0
     },
     {
         "id":6,
         "nome":"M\u00e1quina F",
-        "precoHoraMaquina":200
+        "precoHoraMaquina":200.0
     },
     {
         "id":7,
         "nome":"M\u00e1quina G",
-        "precoHoraMaquina":80
+        "precoHoraMaquina":80.0
     },
     {
         "id":8,
-        "nome":"Maquina H",
-        "precoHoraMaquina":90
+        "nome":"Máquina H",
+        "precoHoraMaquina":90.0
     },
     {
         "id":9,
         "nome":"M\u00e1quina I",
-        "precoHoraMaquina":150
+        "precoHoraMaquina":110.0
     }
 ]

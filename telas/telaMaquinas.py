@@ -1,6 +1,7 @@
 from tkinter import Frame, Label, Button, ttk, messagebox
 import funcoes
 import pandas as pd
+import json
 from classes.Maquina import Maquina
 import telas.telaCalculo as telaCalc 
 
@@ -19,7 +20,17 @@ def criar_Tela(janelaPrincipal, voltar_Tela):
 
     #Tabela de máquinas disponíveis
     #Leitura do arquivo de máquinas, transformando em DataFrame.
-    df_maquinas = pd.read_json("./data/maquinas.json")
+    with open("./data/maquinas.json", "r", encoding="utf-8") as file:
+        maquinas = json.load(file)
+
+    df_maquinas = pd.DataFrame([
+        {
+            "ID": maq["id"],
+            "Nome da máquina": maq["nome"],
+            "Preço hora máquina": maq["precoHoraMaquina"]
+        }
+        for maq in maquinas  # Aqui, 'maq' representa cada dicionário dentro da lista 'maquinas'
+    ])
 
 
     #Tabela
@@ -82,6 +93,7 @@ def add_Maquina(telaMaquinas, tabela_maquinas):
         nova_maquina = Maquina(id, nome, precoHora)
 
         df_novaMaquina = pd.DataFrame([nova_maquina.__dict__])
+
 
         df_maquinas = pd.concat([df_maquinas, df_novaMaquina], ignore_index=True)
         df_maquinas.to_json(caminho_arquivo, orient="records", indent=4)
@@ -175,7 +187,7 @@ def excluir_Maquina(tabela_maquinas):
         if not valores:
             return
         
-        resposta = messagebox.askyesno("Confirmar exclusão", f"Deseja realmente excluir a máquina: {valores[1]}")
+        resposta = messagebox.askyesno("Confirmar exclusão", f"Deseja realmente excluir a máquina {valores[1]}?")
         if not resposta:
             return
 

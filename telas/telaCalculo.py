@@ -46,9 +46,9 @@ def criar_Tela(janelaPrincipal, voltar_Tela):
 
 
     #Labels e campos pedidos:
-    criar_formulario_de_dados_orcamento(telaCalcular,tamanho_padx, tamanho_pady)
-    criar_formulario_de_maquinas(telaCalcular, tamanho_padx, tamanho_pady)
-    criar_formulario_de_preco(telaCalcular, tamanho_padx, tamanho_pady)
+    criar_formulario_de_dados_orcamento(telaCalcular,tamanho_padx, tamanho_pady, campos_dados_orcamento)
+    criar_formulario_de_maquinas(telaCalcular, tamanho_padx, tamanho_pady, lista_maquinas)
+    criar_formulario_de_preco(telaCalcular, tamanho_padx, tamanho_pady, campos_precos)
 
 
     row_resultado = 8
@@ -75,24 +75,23 @@ def criar_Tela(janelaPrincipal, voltar_Tela):
 
 
 
-def criar_formulario_de_dados_orcamento(telaCalcular, tamanho_padx, tamanho_pady):
-    global campos_dados_orcamento
+def criar_formulario_de_dados_orcamento(telaCalcular, tamanho_padx, tamanho_pady, campos_dados_orc):
 
     # Criar um frame para armazenar os campos de dados
     frame_dados = funcoes.criar_frame(telaCalcular)
     frame_dados.grid(column=0, row=2, padx= tamanho_padx, pady=tamanho_pady, sticky="w")
 
-    campos_dados_orcamento["N° do desenho"] = funcoes.criar_campo_de_texto(frame_dados)
-    campos_dados_orcamento["Nome da Peça"] = funcoes.criar_campo_de_texto(frame_dados)
-    campos_dados_orcamento["Quantidade"] = funcoes.criar_campo_de_texto(frame_dados)
-    campos_dados_orcamento["Cliente"] = funcoes.criar_campo_de_texto(frame_dados)
-    campos_dados_orcamento["Data do pedido"] = funcoes.criar_campo_de_texto(frame_dados)
-    campos_dados_orcamento["Data de validade"] = funcoes.criar_campo_de_texto(frame_dados)
+    campos_dados_orc["N° do desenho"] = funcoes.criar_campo_de_texto(frame_dados)
+    campos_dados_orc["Nome da Peça"] = funcoes.criar_campo_de_texto(frame_dados)
+    campos_dados_orc["Quantidade"] = funcoes.criar_campo_de_texto(frame_dados)
+    campos_dados_orc["Cliente"] = funcoes.criar_campo_de_texto(frame_dados)
+    campos_dados_orc["Data do pedido"] = funcoes.criar_campo_de_texto(frame_dados)
+    campos_dados_orc["Data de validade"] = funcoes.criar_campo_de_texto(frame_dados)
 
     coluna = 0
     linha = 2
 
-    for nome, campo in campos_dados_orcamento.items():
+    for nome, campo in campos_dados_orc.items():
         label = funcoes.criar_Label(frame_dados, nome + ":", coluna, linha, tamanho_padx, tamanho_pady)
 
         campo.grid(column=coluna, row=linha + 1, padx=tamanho_padx, pady=tamanho_pady)
@@ -101,9 +100,7 @@ def criar_formulario_de_dados_orcamento(telaCalcular, tamanho_padx, tamanho_pady
 
 
 
-def criar_formulario_de_maquinas(telaCalcular, tamanho_padx, tamanho_pady):
-    global lista_maquinas
-
+def criar_formulario_de_maquinas(telaCalcular, tamanho_padx, tamanho_pady, lista_maquinas_orc):
     def adicionar_maquina():
         caminho_arquivo = "./data/maquinas.json"
         df_maquinas = pd.read_json(caminho_arquivo)
@@ -125,7 +122,7 @@ def criar_formulario_de_maquinas(telaCalcular, tamanho_padx, tamanho_pady):
         campo_horas.grid(column=coluna_atual, row=3, padx= 10, pady=5)
 
         # Armazena os widgets na lista
-        lista_maquinas.append((var_maquina, campo_horas))
+        lista_maquinas_orc.append((var_maquina, campo_horas))
 
         # Incrementa a coluna atual para o próximo conjunto de widgets
         coluna_atual += 1
@@ -144,12 +141,12 @@ def criar_formulario_de_maquinas(telaCalcular, tamanho_padx, tamanho_pady):
                     widget.grid_forget()  # Remove o widget da tela
 
             # Remove a entrada correspondente da lista_maquinas
-            lista_maquinas.pop()  # Remove o último item da lista
+            lista_maquinas_orc.pop()  # Remove o último item da lista
 
 
 
     # Limpa a lista para evitar duplicação ao recarregar a tela
-    lista_maquinas.clear()
+    lista_maquinas_orc.clear()
 
     # Criar um frame para armazenar os campos de máquinas adicionados
     frame_maquinas = funcoes.criar_frame(telaCalcular)
@@ -173,9 +170,7 @@ def criar_formulario_de_maquinas(telaCalcular, tamanho_padx, tamanho_pady):
 
     
 
-def criar_formulario_de_preco(telaCalcular, tamanho_padx, tamanho_pady):
-    global campos_precos  # Usa a variável global
-
+def criar_formulario_de_preco(telaCalcular, tamanho_padx, tamanho_pady, campos_precos_orc):
     caminho_arquivo = "./data/maquinas.json"
     df_maquinas = pd.read_json(caminho_arquivo)
 
@@ -183,19 +178,19 @@ def criar_formulario_de_preco(telaCalcular, tamanho_padx, tamanho_pady):
     frame_itens_preco = funcoes.criar_frame(telaCalcular)
     frame_itens_preco.grid(column=0, row=7, padx= tamanho_padx, pady=tamanho_pady, sticky="w")
 
-    campos_precos["Preço MP"] = funcoes.criar_campo_de_texto(frame_itens_preco)
-    campos_precos["Preço TT"] = funcoes.criar_campo_de_texto(frame_itens_preco)
-    campos_precos["Preço Revestimento"] = funcoes.criar_campo_de_texto(frame_itens_preco)
-    campos_precos["Frete"] = funcoes.criar_campo_de_texto(frame_itens_preco)
-    campos_precos["Porcentagem de Insumos"] = funcoes.criar_campo_de_texto(frame_itens_preco)
-    campos_precos["Porcentagem de Desconto"] = funcoes.criar_campo_de_texto(frame_itens_preco)
-    campos_precos["Porcentagem de Imposto"] = funcoes.criar_campo_de_texto(frame_itens_preco)
+    campos_precos_orc["Preço MP"] = funcoes.criar_campo_de_texto(frame_itens_preco)
+    campos_precos_orc["Preço TT"] = funcoes.criar_campo_de_texto(frame_itens_preco)
+    campos_precos_orc["Preço Revestimento"] = funcoes.criar_campo_de_texto(frame_itens_preco)
+    campos_precos_orc["Frete"] = funcoes.criar_campo_de_texto(frame_itens_preco)
+    campos_precos_orc["Porcentagem de Insumos"] = funcoes.criar_campo_de_texto(frame_itens_preco)
+    campos_precos_orc["Porcentagem de Desconto"] = funcoes.criar_campo_de_texto(frame_itens_preco)
+    campos_precos_orc["Porcentagem de Imposto"] = funcoes.criar_campo_de_texto(frame_itens_preco)
 
     # Coluna e Linha iniciais
     coluna = 0
     linha = 0
 
-    for nome, campo in campos_precos.items():
+    for nome, campo in campos_precos_orc.items():
         label = funcoes.criar_Label(frame_itens_preco, nome + ":", coluna, linha, tamanho_padx, tamanho_pady)
 
         campo.grid(column=coluna, row=linha + 1, padx=tamanho_padx, pady=tamanho_pady)
@@ -282,8 +277,15 @@ def salvarOrcamento():
         historico = []
 
 
+    df_historico = pd.DataFrame(historico)    
     #Dados Orçamento
-    dadosOrcamento, quantidadePecas = obterDadosOrcamento(historico)
+    numeroOrcamento = 1
+
+    if len(df_historico) != 0:
+        numeroOrcamento = int(df_historico["numeroOrcamento"].max()) + 1  
+
+    #Dados Orçamento
+    dadosOrcamento, quantidadePecas = obterDadosOrcamento()
 
     #Lista Maquinas
     maquinas = obterDadosListaMaquinas(df_maquinas)
@@ -301,13 +303,14 @@ def salvarOrcamento():
 
 
     #Criação do objeto orçamento para salvar no histórico
-    orcamento = Orcamento(dadosOrcamento, maquinas, itensOrcamento, precosOrcamento)
+    orcamento = Orcamento(numeroOrcamento, dadosOrcamento, maquinas, itensOrcamento, precosOrcamento)
 
     orcamento_dict = {
+        "numeroOrcamento": numeroOrcamento,
         "dadosOrcamento": orcamento.dadosOrcamento.__dict__,
         "maquinas": [m for m in orcamento.maquinas.maquinas],  # Já está estruturado como lista de dicionários
         "itensOrcamento": orcamento.itensOrcamento.__dict__,
-        "precosOrcamentos": orcamento.precosOrcamento.__dict__,
+        "precosOrcamento": orcamento.precosOrcamento.__dict__,
     }
 
 
@@ -324,15 +327,8 @@ def salvarOrcamento():
 
 
 #Obter dados e criar objetos
-def obterDadosOrcamento(historico):
-    df_historico = pd.DataFrame(historico)
-
-    #Dados Orçamento
-    numeroOrcamento = 1
-
-    if len(df_historico) != 0:
-        df_dados_orcamento = pd.DataFrame(df_historico["dadosOrcamento"].tolist())
-        numeroOrcamento = int(df_dados_orcamento["numeroOrcamento"].max()) + 1  
+def obterDadosOrcamento():
+    #Dados Orçamento  
 
     numeroDesenho = campos_dados_orcamento["N° do desenho"].get() or 0
     nomePeca = campos_dados_orcamento["Nome da Peça"].get() or ""
@@ -345,7 +341,7 @@ def obterDadosOrcamento(historico):
         return None, None
 
     #Objeto de dados
-    dadosOrcamento = DadosOrcamento(numeroOrcamento, numeroDesenho, nomePeca, int(quantidadePecas), cliente, dataPedido, dataValidade)
+    dadosOrcamento = DadosOrcamento(numeroDesenho, nomePeca, int(quantidadePecas), cliente, dataPedido, dataValidade)
 
     return dadosOrcamento, quantidadePecas
 

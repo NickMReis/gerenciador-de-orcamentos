@@ -1,82 +1,126 @@
 [
     {
-        "dadosOrcamento": {
-            "numeroOrcamento": 2,
-            "numeroDesenho": "120",
-            "nomePeca": "Prego especial",
-            "quantidadePecas": 30,
-            "cliente": "Loja do Fernando",
-            "dataPedido": "13/03/2025",
-            "dataValidade": "12/04/2025"
+        "numeroOrcamento":3,
+        "dadosOrcamento":{
+            "numeroDesenho":"9000",
+            "nomePeca":"Tampa de lata de tinta",
+            "quantidadePecas":30,
+            "cliente":"Loja de Tinta do Oswaldo",
+            "dataPedido":"18\/03\/2025",
+            "dataValidade":"24\/04\/2025"
         },
-        "maquinas": [
+        "maquinas":[
             {
-                "maquina": {
-                    "id": 4,
-                    "nome": "Máquina D",
-                    "precoHoraMaquina": 75
+                "maquina":{
+                    "id":3,
+                    "nome":"M\u00e1quina C",
+                    "precoHoraMaquina":100
                 },
-                "quantidadeHorasMaquina": 20.0
+                "quantidadeHorasMaquina":30.0
             },
             {
-                "maquina": {
-                    "id": 9,
-                    "nome": "Máquina I",
-                    "precoHoraMaquina": 150
+                "maquina":{
+                    "id":9,
+                    "nome":"M\u00e1quina I",
+                    "precoHoraMaquina":110
                 },
-                "quantidadeHorasMaquina": 3.0
+                "quantidadeHorasMaquina":10.0
             }
         ],
-        "itensOrcamento": {
-            "precoMP": 2000.0,
-            "precoTT": 400.0,
-            "precoRevestimento": 700.0,
-            "frete": 120.0,
-            "porcentagemInsumos": 5.0,
-            "porcentagemDesconto": 0.0,
-            "porcentagemImposto": 10.0
+        "itensOrcamento":{
+            "precoMP":2500.0,
+            "precoTT":1230.0,
+            "precoRevestimento":900.0,
+            "frete":0.0,
+            "porcentagemInsumos":8.0,
+            "porcentagemDesconto":10.0,
+            "porcentagemImposto":15.0
         },
-        "precosOrcamentos": {
-            "custoTotal": 5428.5,
-            "valorComDesconto": 5428.5,
-            "valorUnitario": 6031.67,
-            "valorFinal": 180950.1
+        "precosOrcamento":{
+            "custoTotal":9428.4,
+            "valorComDesconto":8485.56,
+            "valorUnitario":9983.01,
+            "valorFinal":299490.3
         }
     },
     {
-        "dadosOrcamento": {
-            "numeroOrcamento": 1,
-            "numeroDesenho": "800",
-            "nomePeca": "Engrenagem especial",
-            "quantidadePecas": 20,
-            "cliente": "Empresa do Jair",
-            "dataPedido": "13/03/2025",
-            "dataValidade": "01/04/2025"
+        "numeroOrcamento":2,
+        "dadosOrcamento":{
+            "numeroDesenho":"120",
+            "nomePeca":"Prego especial",
+            "quantidadePecas":30,
+            "cliente":"Loja do Fernando",
+            "dataPedido":"13\/03\/2025",
+            "dataValidade":"12\/04\/2025"
         },
-        "maquinas": [
+        "maquinas":[
             {
-                "maquina": {
-                    "id": 1,
-                    "nome": "Máquina A",
-                    "precoHoraMaquina": 50
+                "maquina":{
+                    "id":4,
+                    "nome":"M\u00e1quina D",
+                    "precoHoraMaquina":75
                 },
-                "quantidadeHorasMaquina": 25.0
+                "quantidadeHorasMaquina":20.0
+            },
+            {
+                "maquina":{
+                    "id":9,
+                    "nome":"M\u00e1quina I",
+                    "precoHoraMaquina":150
+                },
+                "quantidadeHorasMaquina":3.0
             }
         ],
-        "itensOrcamento": {
-            "precoMP": 2000.0,
-            "precoTT": 1200.0,
-            "precoRevestimento": 600.0,
-            "frete": 100.0,
-            "porcentagemInsumos": 5.0,
-            "porcentagemDesconto": 5.0,
-            "porcentagemImposto": 10.0
+        "itensOrcamento":{
+            "precoMP":2000.0,
+            "precoTT":400.0,
+            "precoRevestimento":700.0,
+            "frete":120.0,
+            "porcentagemInsumos":5.0,
+            "porcentagemDesconto":0.0,
+            "porcentagemImposto":10.0
         },
-        "precosOrcamentos": {
-            "custoTotal": 5407.5,
-            "valorComDesconto": 5137.12,
-            "valorUnitario": 5707.91,
-            "valorFinal": 114158.2
+        "precosOrcamento":{
+            "custoTotal":5428.5,
+            "valorComDesconto":5428.5,
+            "valorUnitario":6031.67,
+            "valorFinal":180950.1
+        }
+    },
+    {
+        "numeroOrcamento":1,
+        "dadosOrcamento":{
+            "numeroDesenho":"800",
+            "nomePeca":"Engrenagem especial",
+            "quantidadePecas":20,
+            "cliente":"Empresa do Jair",
+            "dataPedido":"13\/03\/2025",
+            "dataValidade":"01\/04\/2025"
+        },
+        "maquinas":[
+            {
+                "maquina":{
+                    "id":1,
+                    "nome":"M\u00e1quina A",
+                    "precoHoraMaquina":50
+                },
+                "quantidadeHorasMaquina":25.0
+            }
+        ],
+        "itensOrcamento":{
+            "precoMP":2000.0,
+            "precoTT":1200.0,
+            "precoRevestimento":600.0,
+            "frete":100.0,
+            "porcentagemInsumos":5.0,
+            "porcentagemDesconto":5.0,
+            "porcentagemImposto":10.0
+        },
+        "precosOrcamento":{
+            "custoTotal":5407.5,
+            "valorComDesconto":5137.12,
+            "valorUnitario":5707.91,
+            "valorFinal":114158.2
         }
     }
 ]
