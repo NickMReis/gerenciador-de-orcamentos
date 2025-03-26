@@ -47,7 +47,7 @@ def criar_Tela(janelaPrincipal, voltar_Tela):
 
     #Labels e campos pedidos:
     criar_formulario_de_dados_orcamento(telaCalcular,tamanho_padx, tamanho_pady, campos_dados_orcamento)
-    criar_formulario_de_maquinas(telaCalcular, tamanho_padx, tamanho_pady, lista_maquinas)
+    frame_maquinas = criar_formulario_de_maquinas(telaCalcular, tamanho_padx, tamanho_pady, lista_maquinas)
     criar_formulario_de_preco(telaCalcular, tamanho_padx, tamanho_pady, campos_precos)
 
 
@@ -62,7 +62,7 @@ def criar_Tela(janelaPrincipal, voltar_Tela):
     
     row_btns = 9
     #Botões para cálculo e salvar dados
-    botaoCalcular = funcoes.criar_btn(telaCalcular, "Calcular Orçamento", lambda: calcularOrcamento(texto_resultado), 2, row_btns, tamanho_padx, tamanho_pady)
+    botaoCalcular = funcoes.criar_btn(telaCalcular, "Calcular Orçamento", lambda: calcularOrcamento(texto_resultado, campos_dados_orcamento, lista_maquinas, campos_precos), 2, row_btns, tamanho_padx, tamanho_pady)
     #botaoCalcular.grid(column=2,row=row_btns,padx=tamanho_padx,pady=tamanho_pady)
 
     botaoLimparCampos = funcoes.criar_btn(telaCalcular, "Limpar campos de texto", limparCamposTexto, 3, row_btns,tamanho_padx, tamanho_pady)
@@ -168,6 +168,8 @@ def criar_formulario_de_maquinas(telaCalcular, tamanho_padx, tamanho_pady, lista
 
     botao_excluir = funcoes.criar_btn(frame_btns_maquinas, "Excluir Máquina", excluir_maquina, 1, 0, tamanho_padx, tamanho_pady)
 
+    return frame_maquinas
+
     
 
 def criar_formulario_de_preco(telaCalcular, tamanho_padx, tamanho_pady, campos_precos_orc):
@@ -204,15 +206,13 @@ def criar_formulario_de_preco(telaCalcular, tamanho_padx, tamanho_pady, campos_p
 
 
 #Ações dos botões
-def calcularOrcamento(texto_resultado):
-    global campos_dados_orcamento, campos_precos
-
+def calcularOrcamento(texto_resultado, campos_dados_orc, lista_maquinas_orc, campos_precos_orc):
     caminho_arquivo = "./data/maquinas.json"
     df_maquinas = pd.read_json(caminho_arquivo)
 
     precoHorasTotal = 0 
 
-    for var_maquina, campo_horas in lista_maquinas:
+    for var_maquina, campo_horas in lista_maquinas_orc:
         nome_maquina = var_maquina.get()
         quantHoras = funcoes.verificarEntrada(campo_horas.get() or 0)
 
@@ -227,16 +227,16 @@ def calcularOrcamento(texto_resultado):
             break
     
 
-    quantidadePecas = funcoes.verificarEntrada(campos_dados_orcamento["Quantidade"].get() or 0)
+    quantidadePecas = funcoes.verificarEntrada(campos_dados_orc["Quantidade"].get() or 0)
 
-    precoMP = funcoes.verificarEntrada(campos_precos["Preço MP"].get() or 0)
-    precoTT = funcoes.verificarEntrada(campos_precos["Preço TT"].get() or 0)
-    precoRevestimento = funcoes.verificarEntrada(campos_precos["Preço Revestimento"].get() or 0)
-    frete = funcoes.verificarEntrada(campos_precos["Frete"].get() or 0)
+    precoMP = funcoes.verificarEntrada(campos_precos_orc["Preço MP"].get() or 0)
+    precoTT = funcoes.verificarEntrada(campos_precos_orc["Preço TT"].get() or 0)
+    precoRevestimento = funcoes.verificarEntrada(campos_precos_orc["Preço Revestimento"].get() or 0)
+    frete = funcoes.verificarEntrada(campos_precos_orc["Frete"].get() or 0)
 
-    insumos = funcoes.verificarEntrada(campos_precos["Porcentagem de Insumos"].get() or 0)
-    desconto = funcoes.verificarEntrada(campos_precos["Porcentagem de Desconto"].get() or 0)
-    imposto = funcoes.verificarEntrada(campos_precos["Porcentagem de Imposto"].get() or 0)
+    insumos = funcoes.verificarEntrada(campos_precos_orc["Porcentagem de Insumos"].get() or 0)
+    desconto = funcoes.verificarEntrada(campos_precos_orc["Porcentagem de Desconto"].get() or 0)
+    imposto = funcoes.verificarEntrada(campos_precos_orc["Porcentagem de Imposto"].get() or 0)
 
 
     resultados = calcularValoresOrcamento(precoHorasTotal, quantidadePecas, precoMP, precoTT, precoRevestimento, frete, insumos, desconto, imposto)
@@ -285,21 +285,21 @@ def salvarOrcamento():
         numeroOrcamento = int(df_historico["numeroOrcamento"].max()) + 1  
 
     #Dados Orçamento
-    dadosOrcamento, quantidadePecas = obterDadosOrcamento()
+    dadosOrcamento, quantidadePecas = obterDadosOrcamento(campos_dados_orcamento)
 
     #Lista Maquinas
-    maquinas = obterDadosListaMaquinas(df_maquinas)
+    maquinas = obterDadosListaMaquinas(lista_maquinas, df_maquinas)
     
 
     #Itens do orçamentos
-    itensOrcamento = obterDadosItens()
+    itensOrcamento = obterDadosItens(campos_precos)
 
 
     if (dadosOrcamento == None) or (maquinas == None) or (itensOrcamento == None):
         return 
     
     #Preços do Orçamento
-    precosOrcamento = obterPrecosOrcamento(df_maquinas, quantidadePecas)
+    precosOrcamento = obterPrecosOrcamento(campos_precos, lista_maquinas, df_maquinas, quantidadePecas)
 
 
     #Criação do objeto orçamento para salvar no histórico
@@ -327,15 +327,15 @@ def salvarOrcamento():
 
 
 #Obter dados e criar objetos
-def obterDadosOrcamento():
+def obterDadosOrcamento(campos_dados_orc):
     #Dados Orçamento  
 
-    numeroDesenho = campos_dados_orcamento["N° do desenho"].get() or 0
-    nomePeca = campos_dados_orcamento["Nome da Peça"].get() or ""
-    quantidadePecas = funcoes.verificarEntrada(campos_dados_orcamento["Quantidade"].get() or 0)
-    cliente = campos_dados_orcamento["Cliente"].get() or ""
-    dataPedido = campos_dados_orcamento["Data do pedido"].get() or 0
-    dataValidade = campos_dados_orcamento["Data de validade"].get() or 0
+    numeroDesenho = campos_dados_orc["N° do desenho"].get() or 0
+    nomePeca = campos_dados_orc["Nome da Peça"].get() or ""
+    quantidadePecas = funcoes.verificarEntrada(campos_dados_orc["Quantidade"].get() or 0)
+    cliente = campos_dados_orc["Cliente"].get() or ""
+    dataPedido = campos_dados_orc["Data do pedido"].get() or 0
+    dataValidade = campos_dados_orc["Data de validade"].get() or 0
 
     if quantidadePecas == None:
         return None, None
@@ -346,11 +346,11 @@ def obterDadosOrcamento():
     return dadosOrcamento, quantidadePecas
 
 
-def obterDadosListaMaquinas(df_maquinas):
+def obterDadosListaMaquinas(lista_maquinas_orc, df_maquinas):
     #Lista Maquinas
     arrayMaquinas = []
 
-    for var_maquina, campo_horas in lista_maquinas:
+    for var_maquina, campo_horas in lista_maquinas_orc:
         nome_maquina = var_maquina.get()
         quantHoras = funcoes.verificarEntrada(campo_horas.get() or 0)
 
@@ -371,16 +371,16 @@ def obterDadosListaMaquinas(df_maquinas):
     return maquinas
 
 
-def obterDadosItens():
+def obterDadosItens(campos_precos_orc):
     #Itens do Orçamento
-    precoMP = funcoes.verificarEntrada(campos_precos["Preço MP"].get() or 0)
-    precoTT = funcoes.verificarEntrada(campos_precos["Preço TT"].get() or 0)
-    precoRevestimento = funcoes.verificarEntrada(campos_precos["Preço Revestimento"].get() or 0)
-    frete = funcoes.verificarEntrada(campos_precos["Frete"].get() or 0)
+    precoMP = funcoes.verificarEntrada(campos_precos_orc["Preço MP"].get() or 0)
+    precoTT = funcoes.verificarEntrada(campos_precos_orc["Preço TT"].get() or 0)
+    precoRevestimento = funcoes.verificarEntrada(campos_precos_orc["Preço Revestimento"].get() or 0)
+    frete = funcoes.verificarEntrada(campos_precos_orc["Frete"].get() or 0)
 
-    insumos = funcoes.verificarEntrada(campos_precos["Porcentagem de Insumos"].get() or 0)
-    desconto = funcoes.verificarEntrada(campos_precos["Porcentagem de Desconto"].get() or 0)
-    imposto = funcoes.verificarEntrada(campos_precos["Porcentagem de Imposto"].get() or 0)
+    insumos = funcoes.verificarEntrada(campos_precos_orc["Porcentagem de Insumos"].get() or 0)
+    desconto = funcoes.verificarEntrada(campos_precos_orc["Porcentagem de Desconto"].get() or 0)
+    imposto = funcoes.verificarEntrada(campos_precos_orc["Porcentagem de Imposto"].get() or 0)
 
     valoresDasEntradas = [
         precoMP, precoTT, precoRevestimento, frete, insumos, desconto, imposto
@@ -394,10 +394,10 @@ def obterDadosItens():
     return itensOrcamento
 
 
-def obterPrecosOrcamento(df_maquinas, quantidadePecas):
+def obterPrecosOrcamento(campos_precos_orc, lista_maquinas_orc, df_maquinas, quantidadePecas):
     precoHorasTotal = 0 
 
-    for var_maquina, campo_horas in lista_maquinas:
+    for var_maquina, campo_horas in lista_maquinas_orc:
         nome_maquina = var_maquina.get()
         quantHoras = funcoes.verificarEntrada(campo_horas.get() or 0)
 
@@ -411,13 +411,13 @@ def obterPrecosOrcamento(df_maquinas, quantidadePecas):
             precoHorasTotal = None
             break
 
-    precoMP = funcoes.verificarEntrada(campos_precos["Preço MP"].get() or 0)
-    precoTT = funcoes.verificarEntrada(campos_precos["Preço TT"].get() or 0)
-    precoRevestimento = funcoes.verificarEntrada(campos_precos["Preço Revestimento"].get() or 0)
+    precoMP = funcoes.verificarEntrada(campos_precos_orc["Preço MP"].get() or 0)
+    precoTT = funcoes.verificarEntrada(campos_precos_orc["Preço TT"].get() or 0)
+    precoRevestimento = funcoes.verificarEntrada(campos_precos_orc["Preço Revestimento"].get() or 0)
     frete = funcoes.verificarEntrada(campos_precos["Frete"].get() or 0)
-    insumos = funcoes.verificarEntrada(campos_precos["Porcentagem de Insumos"].get() or 0)
-    desconto = funcoes.verificarEntrada(campos_precos["Porcentagem de Desconto"].get() or 0)
-    imposto = funcoes.verificarEntrada(campos_precos["Porcentagem de Imposto"].get() or 0)
+    insumos = funcoes.verificarEntrada(campos_precos_orc["Porcentagem de Insumos"].get() or 0)
+    desconto = funcoes.verificarEntrada(campos_precos_orc["Porcentagem de Desconto"].get() or 0)
+    imposto = funcoes.verificarEntrada(campos_precos_orc["Porcentagem de Imposto"].get() or 0)
 
     resultados = calcularValoresOrcamento(precoHorasTotal, quantidadePecas, precoMP, precoTT, precoRevestimento, frete, insumos, desconto, imposto)
 

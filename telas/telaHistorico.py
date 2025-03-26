@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import messagebox, ttk
 import pandas as pd
 import json
+from classes.Orcamento import Orcamento
 import funcoes
 import telas.telaCalculo as telaCalc
 
@@ -41,10 +42,10 @@ def criar_Tela(janelaPrincipal, voltar_Tela):
     tabela_historico = criar_tabela_de_historico(telaHistorico, df_historico_orcamentos)
 
     telaConsultaOrcamento, framesConsultaOrcamento = criarTelaConsultaOrcamento(janelaPrincipal, telaHistorico)
-    telaAlterarDadosOrcamento, texto_resultado = criarTelaAlterarDadosOrcamento(janelaPrincipal, telaHistorico)
+    telaAlterarDadosOrcamento, texto_resultado, frame_maquinas = criarTelaAlterarDadosOrcamento(janelaPrincipal, telaHistorico)
 
     #Botões Consultar, Excluir, Alterar
-    criar_botoes_historico(telaConsultaOrcamento, telaAlterarDadosOrcamento, telaHistorico, tabela_historico, framesConsultaOrcamento, texto_resultado)
+    criar_botoes_historico(telaConsultaOrcamento, telaAlterarDadosOrcamento, telaHistorico, tabela_historico, framesConsultaOrcamento, texto_resultado, frame_maquinas)
 
 
     #Retorna tela
@@ -120,7 +121,7 @@ def criarTelaAlterarDadosOrcamento(janelaPrincipal, telaHistorico):
 
     telaCalc.criar_formulario_de_dados_orcamento(telaAlterarDadosOrcamento, tamanho_padx, tamanho_pady, campos_dados)
 
-    telaCalc.criar_formulario_de_maquinas(telaAlterarDadosOrcamento, tamanho_padx, tamanho_pady, campos_maquinas)
+    frame_maquinas = telaCalc.criar_formulario_de_maquinas(telaAlterarDadosOrcamento, tamanho_padx, tamanho_pady, campos_maquinas)
 
     telaCalc.criar_formulario_de_preco(telaAlterarDadosOrcamento, tamanho_padx, tamanho_pady, campos_precos)
 
@@ -132,17 +133,17 @@ def criarTelaAlterarDadosOrcamento(janelaPrincipal, telaHistorico):
     texto_resultado = Label(telaAlterarDadosOrcamento, text="") 
     texto_resultado.grid(column=0, row=row_resultado + 1, padx=tamanho_padx, pady=tamanho_pady, sticky="w")
 
-    return telaAlterarDadosOrcamento, texto_resultado
+    return telaAlterarDadosOrcamento, texto_resultado, frame_maquinas
 
 
 
 #Criação de botões do histórico de orçamentos
-def criar_botoes_historico(telaConsultaOrcamento, telaAlterarDadosOrcamento, telaHistorico, tabela_historico, framesConsultaOrcamento, texto_resultado):
+def criar_botoes_historico(telaConsultaOrcamento, telaAlterarDadosOrcamento, telaHistorico, tabela_historico, framesConsultaOrcamento, texto_resultado, frame_maquinas):
     botao_atualizar = funcoes.criar_btn(telaHistorico, "Atualizar Tabela", lambda: atualizarTabela(telaHistorico, tabela_historico), 0, 3, 10, 10)
 
     botao_consultar = funcoes.criar_btn(telaHistorico, "Consultar item", lambda: consultar_item_no_historico(telaConsultaOrcamento, telaHistorico, tabela_historico, framesConsultaOrcamento), 0, 4, 10, 10)
 
-    botao_alterar = funcoes.criar_btn(telaHistorico, "Alterar item no Histórico", lambda: alterar_item_no_historico(telaAlterarDadosOrcamento, telaHistorico, tabela_historico, texto_resultado), 0, 5, 10, 10)
+    botao_alterar = funcoes.criar_btn(telaHistorico, "Alterar item no Histórico", lambda: alterar_item_no_historico(telaAlterarDadosOrcamento, telaHistorico, tabela_historico, texto_resultado, frame_maquinas), 0, 5, 10, 10)
 
     botao_excluir = funcoes.criar_btn(telaHistorico, "Excluir item no Histórico", lambda: excluir_item_no_historico(tabela_historico), 0, 6, 10, 10)
 
@@ -232,7 +233,7 @@ def consultar_item_no_historico(telaConsultaOrcamento, telaHistorico, tabela_his
         messagebox.showinfo("Consulta", "Nenhum orçamento selecionado.")
 
 
-def alterar_item_no_historico(telaAlterarDadosOrcamento, telaHistorico, tabela_historico, texto_resultado):
+def alterar_item_no_historico(telaAlterarDadosOrcamento, telaHistorico, tabela_historico, texto_resultado, frame_maquinas):
     #Caso a não tenha elementos na tabela
     if tabela_historico is None:
         messagebox.showinfo("Altualizar", "Não há registros de orçamento no histórico.")
@@ -257,7 +258,12 @@ def alterar_item_no_historico(telaAlterarDadosOrcamento, telaHistorico, tabela_h
         )
         funcoes.criar_Label(telaAlterarDadosOrcamento, f"Número do Orçamento: {idOrcamento}", 0, 1, 10, 10)
         
-        preencher_telaAlterar_dadosOrcamento(orcamento_selecionado, texto_resultado)
+        preencher_telaAlterar_dadosOrcamento(orcamento_selecionado, texto_resultado, frame_maquinas)
+
+        row_btns = 9
+        #Botões para cálculo e salvar dados
+        botaoCalcular = funcoes.criar_btn(telaAlterarDadosOrcamento, "Calcular Orçamento", lambda: telaCalc.calcularOrcamento(texto_resultado, campos_dados, campos_maquinas, campos_precos), 2, row_btns, 10, 10)
+        botaoSalvar = funcoes.criar_btn(telaAlterarDadosOrcamento, "Salvar orçamento", lambda: salvarOrcamento(idOrcamento), 3, row_btns, 10, 10)
     else:
         messagebox.showinfo("Atualizar", "Nenhum orçamento selecionado.")
     
@@ -350,7 +356,7 @@ def preencher_dados_orcamento(framesConsultaOrcamento, dados):
 
 
 
-def preencher_telaAlterar_dadosOrcamento(orcamento_selecionado, texto_resultado):
+def preencher_telaAlterar_dadosOrcamento(orcamento_selecionado, texto_resultado, frame_maquinas):
     dadosOrcamento = orcamento_selecionado["dadosOrcamento"]
     maquinasOrcamento = orcamento_selecionado["maquinas"]
     itensOrcamento = orcamento_selecionado["itensOrcamento"]
@@ -367,13 +373,105 @@ def preencher_telaAlterar_dadosOrcamento(orcamento_selecionado, texto_resultado)
             campos[chave].insert(0, listaDados[i])
             i += 1
 
+    #Acertar essa parte para que seja adaptada a todos os orçamentos com variadas quantidades de maquinas
+    #Ao abri para alterar um orçamento, seja zerada a criação dos campos das máquinas
+    def add_maquinas(campos, maquinas):
+        i = 0 
+        for var_maquina, campo_horas in campos:
+            if i >= len(maquinas):
+                break
+            if len(maquinas) > 1:
+                var_maquina = StringVar(frame_maquinas)
+                label_menu = funcoes.criar_Label(frame_maquinas, "Escolher máquina:", i, 0, 10, 10)
+
+                menu_suspenso = OptionMenu(frame_maquinas, var_maquina, *maquinas[i])
+                menu_suspenso.grid(column=i, row=1, padx=10, pady=5)
+
+                label_horas = funcoes.criar_Label(frame_maquinas, "Quantidade de horas:", i, 2, 10, 10)
+
+                campo_horas = funcoes.criar_campo_de_texto(frame_maquinas)
+                campo_horas.grid(column=i, row=3, padx= 10, pady=5)
+
+                campos.append((var_maquina, campo_horas))
+
+            maquina = maquinas[i]["maquina"]
+            var_maquina.set(maquina["nome"])
+            campo_horas.insert(0, maquinas[i]["quantidadeHorasMaquina"])
+
+            i += 1
+
+
     limparCamposData(campos_dados)
     limparCamposData(campos_precos)
     add_data(campos_dados, dadosOrcamento)
     add_data(campos_precos, itensOrcamento)
-    #Falta apenas adicionar as máquinas!
+    
+    add_maquinas(campos_maquinas, maquinasOrcamento)
+    
 
     texto_resultado["text"] = f"""Custo com insumos: R${precosOrcamento["custoTotal"]:.2f} 
 Valor com desconto: R${precosOrcamento["valorComDesconto"]:.2f} 
 Valor unitário: R${precosOrcamento["valorUnitario"]:.2f} 
 Valor final: R${precosOrcamento["valorFinal"]:.2f}"""
+    
+
+
+def salvarOrcamento(numeroOrcamento):
+    caminho_arquivo_maquinas = "./data/maquinas.json"
+    df_maquinas = pd.read_json(caminho_arquivo_maquinas)
+
+    #Lê o arquivo para evitar sobrescrever
+    caminho_arquivo_historico = "./data/historico_orcamentos.json"
+    try:
+        with open(caminho_arquivo_historico, "r", encoding="utf-8") as arquivo:
+            historico = json.load(arquivo)
+    except (FileNotFoundError, json.JSONDecodeError):
+        historico = []
+
+    df_historico = pd.DataFrame(historico)
+
+    #Dados Orçamento
+    dadosOrcamento, quantidadePecas = telaCalc.obterDadosOrcamento(campos_dados)
+
+    #Lista Maquinas
+    maquinas = telaCalc.obterDadosListaMaquinas(campos_maquinas, df_maquinas)
+    
+
+    #Itens do orçamentos
+    itensOrcamento = telaCalc.obterDadosItens(campos_precos)
+
+
+    if (dadosOrcamento == None) or (maquinas == None) or (itensOrcamento == None):
+        return 
+    
+    #Preços do Orçamento
+    precosOrcamento = telaCalc.obterPrecosOrcamento(campos_precos, campos_maquinas, df_maquinas, quantidadePecas)
+
+
+    #Criação do objeto orçamento para salvar no histórico
+    orcamento = Orcamento(numeroOrcamento, dadosOrcamento, maquinas, itensOrcamento, precosOrcamento)
+
+    orcamento_dict = {
+        "numeroOrcamento": numeroOrcamento,
+        "dadosOrcamento": orcamento.dadosOrcamento.__dict__,
+        "maquinas": [m for m in orcamento.maquinas.maquinas],  # Já está estruturado como lista de dicionários
+        "itensOrcamento": orcamento.itensOrcamento.__dict__,
+        "precosOrcamento": orcamento.precosOrcamento.__dict__,
+    }
+
+
+    index = next((i for i, item in enumerate(historico) if item["numeroOrcamento"] == numeroOrcamento), None)
+
+    if index is not None:
+        # **Remove o orçamento antigo e insere orçamento atualizado na mesma posição**
+        del historico[index]
+        historico.insert(index, orcamento_dict)
+    else:
+        # **Adicionar um novo orçamento**
+        historico.append(orcamento_dict)
+    
+    # Salva no arquivo JSON
+    with open("./data/historico_orcamentos.json", "w", encoding="utf-8") as arquivo:
+        json.dump(historico, arquivo, indent=4, ensure_ascii=False)
+
+    messagebox.showinfo("Orçamento salvo", "O orçamento foi salvo com sucesso!")
