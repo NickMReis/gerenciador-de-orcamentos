@@ -69,7 +69,7 @@ janelaPrincipal.mainloop()
 
 #7. Consertar o problema onde ao adicionar uma nova máquina, não aparece entre as opções em novo orçamento. [✔]
 
-#8. Implementar o histórico, para exibir a tabela com os principais dados de um orçamento, e métodos de consulta, edição e exclusão de itens no histórico (arquivo json). []
+#8. Implementar o histórico, para exibir a tabela com os principais dados de um orçamento, e métodos de consulta, edição e exclusão de itens no histórico (arquivo json). [✔]
 
 #9. Depois de tudo pronto, ver como criar um banco de dados com o Firebase, caso seja necessário (se for um sistema para mais de um computador, se não, apenas um banco dentro do próprio arquivo json do software será necessário). []
 

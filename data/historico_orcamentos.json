@@ -30,7 +30,7 @@
                 "maquina": {
                     "id": 4,
                     "nome": "Máquina D",
-                    "precoHoraMaquina": 60
+                    "precoHoraMaquina": 75
                 },
                 "quantidadeHorasMaquina": 20.0
             }
@@ -45,10 +45,10 @@
             "porcentagemImposto": 12.0
         },
         "precosOrcamento": {
-            "custoTotal": 48330.0,
-            "valorComDesconto": 43497.0,
-            "valorUnitario": 49428.41,
-            "valorFinal": 49428.41
+            "custoTotal": 48492.0,
+            "valorComDesconto": 43642.8,
+            "valorUnitario": 49594.09,
+            "valorFinal": 49594.09
         }
     },
     {
@@ -137,22 +137,6 @@
                     "precoHoraMaquina": 110
                 },
                 "quantidadeHorasMaquina": 16.0
-            },
-            {
-                "maquina": {
-                    "id": 3,
-                    "nome": "Máquina C",
-                    "precoHoraMaquina": 100
-                },
-                "quantidadeHorasMaquina": 15.0
-            },
-            {
-                "maquina": {
-                    "id": 9,
-                    "nome": "Máquina I",
-                    "precoHoraMaquina": 110
-                },
-                "quantidadeHorasMaquina": 20.0
             }
         ],
         "itensOrcamento": {
@@ -186,17 +170,9 @@
                 "maquina": {
                     "id": 4,
                     "nome": "Máquina D",
-                    "precoHoraMaquina": 75
+                    "precoHoraMaquina": 60
                 },
                 "quantidadeHorasMaquina": 20.0
-            },
-            {
-                "maquina": {
-                    "id": 9,
-                    "nome": "Máquina I",
-                    "precoHoraMaquina": 150
-                },
-                "quantidadeHorasMaquina": 3.0
             }
         ],
         "itensOrcamento": {
@@ -209,10 +185,10 @@
             "porcentagemImposto": 10.0
         },
         "precosOrcamento": {
-            "custoTotal": 5428.5,
-            "valorComDesconto": 5428.5,
-            "valorUnitario": 6031.67,
-            "valorFinal": 180950.1
+            "custoTotal": 4515.0,
+            "valorComDesconto": 4515.0,
+            "valorUnitario": 5016.67,
+            "valorFinal": 150500.1
         }
     },
     {
@@ -220,7 +196,7 @@
         "dadosOrcamento": {
             "numeroDesenho": "800",
             "nomePeca": "Engrenagem especial",
-            "quantidadePecas": 20,
+            "quantidadePecas": 35,
             "cliente": "Empresa do Jair",
             "dataPedido": "13/03/2025",
             "dataValidade": "01/04/2025"
@@ -233,10 +209,18 @@
                     "precoHoraMaquina": 50
                 },
                 "quantidadeHorasMaquina": 25.0
+            },
+            {
+                "maquina": {
+                    "id": 5,
+                    "nome": "Máquina E",
+                    "precoHoraMaquina": 120
+                },
+                "quantidadeHorasMaquina": 15.0
             }
         ],
         "itensOrcamento": {
-            "precoMP": 2000.0,
+            "precoMP": 4000.0,
             "precoTT": 1200.0,
             "precoRevestimento": 600.0,
             "frete": 100.0,
@@ -245,10 +229,10 @@
             "porcentagemImposto": 10.0
         },
         "precosOrcamento": {
-            "custoTotal": 5407.5,
-            "valorComDesconto": 5137.12,
-            "valorUnitario": 5707.91,
-            "valorFinal": 114158.2
+            "custoTotal": 9292.5,
+            "valorComDesconto": 8827.88,
+            "valorUnitario": 9808.76,
+            "valorFinal": 343306.6
         }
     }
 ]

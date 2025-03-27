@@ -47,7 +47,7 @@ def criar_Tela(janelaPrincipal, voltar_Tela):
 
     #Labels e campos pedidos:
     criar_formulario_de_dados_orcamento(telaCalcular,tamanho_padx, tamanho_pady, campos_dados_orcamento)
-    frame_maquinas = criar_formulario_de_maquinas(telaCalcular, tamanho_padx, tamanho_pady, lista_maquinas)
+    frame_maquinas, frame_maquinas_btns = criar_formulario_de_maquinas(telaCalcular, tamanho_padx, tamanho_pady, lista_maquinas)
     criar_formulario_de_preco(telaCalcular, tamanho_padx, tamanho_pady, campos_precos)
 
 
@@ -154,7 +154,7 @@ def criar_formulario_de_maquinas(telaCalcular, tamanho_padx, tamanho_pady, lista
 
     frame_btns_maquinas = funcoes.criar_frame(telaCalcular)
     frame_btns_maquinas.grid(column=0, row=5, padx= tamanho_padx, pady=tamanho_pady, sticky="w")
-
+    
     coluna_atual = 0
 
     var_maquina = 0
@@ -168,7 +168,7 @@ def criar_formulario_de_maquinas(telaCalcular, tamanho_padx, tamanho_pady, lista
 
     botao_excluir = funcoes.criar_btn(frame_btns_maquinas, "Excluir Máquina", excluir_maquina, 1, 0, tamanho_padx, tamanho_pady)
 
-    return frame_maquinas
+    return frame_maquinas, frame_btns_maquinas
 
     
 
