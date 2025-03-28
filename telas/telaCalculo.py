@@ -108,24 +108,25 @@ def criar_formulario_de_maquinas(telaCalcular, tamanho_padx, tamanho_pady, lista
         """Adiciona um novo dropdown de máquina e campo de quantidade de horas"""
         nonlocal coluna_atual  # Permite modificar a variável coluna_atual dentro da função
 
-        var_maquina = StringVar(frame_maquinas)
-        var_maquina.set(df_maquinas["nome"].iloc[0])  # Primeiro nome como padrão
+        if len(df_maquinas) > 0: 
+            var_maquina = StringVar(frame_maquinas)
+            var_maquina.set(df_maquinas["nome"].iloc[0])  # Primeiro nome como padrão
 
-        label_menu = funcoes.criar_Label(frame_maquinas, "Escolher máquina:", coluna_atual, 0, tamanho_padx, tamanho_pady)
+            label_menu = funcoes.criar_Label(frame_maquinas, "Escolher máquina:", coluna_atual, 0, tamanho_padx, tamanho_pady)
 
-        menu_suspenso = OptionMenu(frame_maquinas, var_maquina, *df_maquinas["nome"].tolist())
-        menu_suspenso.grid(column=coluna_atual, row=1, padx=10, pady=5)
+            menu_suspenso = OptionMenu(frame_maquinas, var_maquina, *df_maquinas["nome"].tolist())
+            menu_suspenso.grid(column=coluna_atual, row=1, padx=10, pady=5)
 
-        label_horas = funcoes.criar_Label(frame_maquinas, "Quantidade de horas:", coluna_atual, 2, tamanho_padx, tamanho_pady)
+            label_horas = funcoes.criar_Label(frame_maquinas, "Quantidade de horas:", coluna_atual, 2, tamanho_padx, tamanho_pady)
 
-        campo_horas = funcoes.criar_campo_de_texto(frame_maquinas)
-        campo_horas.grid(column=coluna_atual, row=3, padx= 10, pady=5)
+            campo_horas = funcoes.criar_campo_de_texto(frame_maquinas)
+            campo_horas.grid(column=coluna_atual, row=3, padx= 10, pady=5)
 
-        # Armazena os widgets na lista
-        lista_maquinas_orc.append((var_maquina, campo_horas))
+            # Armazena os widgets na lista
+            lista_maquinas_orc.append((var_maquina, campo_horas))
 
-        # Incrementa a coluna atual para o próximo conjunto de widgets
-        coluna_atual += 1
+            # Incrementa a coluna atual para o próximo conjunto de widgets
+            coluna_atual += 1
 
 
 

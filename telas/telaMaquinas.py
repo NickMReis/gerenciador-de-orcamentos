@@ -58,25 +58,19 @@ def criar_botoes_maquinas(telaMaquinas, coluna_btns, tamanho_padx, tamanho_pady,
 
 
 
-def criar_tabela_de_maquinas(telaMaquinas, df_maquinas):
-    if len(df_maquinas) == 0:
-        texto_maquinas = funcoes.criar_Label(telaMaquinas, "Não há máquinas registradas.", 0, 1, 20, 20)      
-        
-        return None
-    
-    else:    
-        #Criando um frame para colocar a tabela
-        frame_tabela = ttk.Frame(telaMaquinas)
-        frame_tabela.grid(column=0,row=1,padx=20, pady=20)
+def criar_tabela_de_maquinas(telaMaquinas, df_maquinas):   
+    #Criando um frame para colocar a tabela
+    frame_tabela = ttk.Frame(telaMaquinas)
+    frame_tabela.grid(column=0,row=1,padx=20, pady=20)
 
-        # Obtendo os nomes das colunas
-        cols = list(df_maquinas.columns)  
+    # Obtendo os nomes das colunas
+    cols = ["ID", "Nome da Máquina", "Preço por Hora"]
 
-        #Criando tabela e adicionando ao frame
-        tabela_maquinas = funcoes.criar_tabela(frame_tabela, cols, df_maquinas)
-        tabela_maquinas.pack()
+    #Criando tabela e adicionando ao frame
+    tabela_maquinas = funcoes.criar_tabela(frame_tabela, cols, df_maquinas)
+    tabela_maquinas.pack()
 
-        return tabela_maquinas
+    return tabela_maquinas
 
 
 
@@ -191,13 +185,25 @@ def excluir_Maquina(tabela_maquinas):
         if not resposta:
             return
 
+        with open("./data/historico_orcamentos.json", "r", encoding="utf-8") as arquivo:
+            historico_orcamentos = json.load(arquivo)
+
+        # Pegando o primeiro valor (ID) para identificar a linha a ser removida 
+        id_maquina = int(valores[0])  
+
+        podeExcluir, orcamentos = podeExcluirMaquina(id_maquina, historico_orcamentos)
+        if podeExcluir == False:
+            messagebox.showerror(
+                "Erro na exclusão!", 
+                f"A máquina que você escolheu para excluir está sendo usada nos orçamentos {', '.join(map(str, orcamentos[:-1]))} e {orcamentos[-1]}."
+                if len(orcamentos) > 1 
+                else f"A máquina que você escolheu para excluir está sendo usada no orçamento {orcamentos[0]}."
+            )
+            return
+
         # Carregar JSON
         caminho_arquivo = "./data/maquinas.json"
         df_maquinas = pd.read_json(caminho_arquivo)
-
-        # Identificar a linha a ser removida (supondo que a 1ª coluna seja o ID único)
-        # Pegando o primeiro valor (ID)
-        id_maquina = int(valores[0])  
 
         # Filtra, remove a linha com o ID correspondente e reajusta os indices
         df_maquinas = df_maquinas[df_maquinas.iloc[:, 0] != id_maquina] 
@@ -218,3 +224,14 @@ def excluir_Maquina(tabela_maquinas):
         messagebox.showwarning("Erro na exclusão", "Nenhuma máquina selecionada.")
         
 
+def podeExcluirMaquina(id, historico):
+    orcamentosUsando = []
+    for orcamento in historico:
+        for item in orcamento["maquinas"]:
+            if item["maquina"]["id"] == id:
+                orcamentosUsando.append(orcamento["numeroOrcamento"])
+
+    if orcamentosUsando:
+        return False, orcamentosUsando  
+    
+    return True, []

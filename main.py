@@ -3,6 +3,7 @@ import funcoes
 import telas.telaMaquinas as telaMaq
 import telas.telaCalculo as telaCalc
 import telas.telaHistorico as telaHist
+import telas.telaManual as telaMan
 
 
 
@@ -31,22 +32,31 @@ label_orientacao = Label(telaInicial, text="Clique em um dos botões abaixo. Voc
 label_orientacao.grid(column=0, row=1, padx=10, pady=10)
 
 
+#Frame para guardar os botões
+frameButtons = Frame(telaInicial)
+frameButtons.grid(column=0, row=2, padx= 10, pady=10)
 
 #Botões
 #Importante para entender: o termo command=lambda: funcoes.funcao() é para garantir a execução da função apenas quando clicar no botão e permitir a passagem de argumentos para as funções no arquivo funcoes.py
-botao_maquinas = funcoes.criar_btn(telaInicial, "Visualizar máquinas", lambda: funcoes.pularProxTela(telaInicial, telaMaquinas), 0, 2, 10, 10)
+botao_maquinas = funcoes.criar_btn(frameButtons, "Visualizar máquinas", lambda: funcoes.pularProxTela(telaInicial, telaMaquinas), 0, 0, 10, 10)
 
-botao_calculo = funcoes.criar_btn(telaInicial, "Novo orçamento", lambda: funcoes.pularProxTela(telaInicial, telaCalculo), 0, 3, 10, 10)
+botao_calculo = funcoes.criar_btn(frameButtons, "Novo orçamento", lambda: funcoes.podeAbrirTela(telaInicial, telaCalculo), 1, 0, 10, 10)
 
-botao_historico = funcoes.criar_btn(telaInicial, "Ver orçamentos", lambda: funcoes.pularProxTela(telaInicial, telaHistorico), 0, 4, 10, 10)
+botao_manualInstrucoes = funcoes.criar_btn(frameButtons, "Manual de uso do software", lambda: funcoes.pularProxTela(telaInicial, telaManual), 0, 1, 10, 10)
 
+botao_historico = funcoes.criar_btn(frameButtons, "Ver orçamentos", lambda: funcoes.pularProxTela(telaInicial, telaHistorico), 1, 1, 10, 10) 
+
+"""
+Importante ressaltar que eu aumentei o width e height dos botões do código.
+Depois adaptar cada tamanho de botão para cada caso e tela.
+"""
 
 
 #Chamada de telaMaquinas, telaCalculo e telaHistorico
 telaMaquinas = telaMaq.criar_Tela(janelaPrincipal, lambda: funcoes.voltarTelaAnterior(telaInicial, telaMaquinas))
 telaHistorico = telaHist.criar_Tela(janelaPrincipal, lambda: funcoes.voltarTelaAnterior(telaInicial, telaHistorico))
 telaCalculo = telaCalc.criar_Tela(janelaPrincipal, lambda: funcoes.voltarTelaAnterior(telaInicial, telaCalculo))
-
+telaManual = telaMan.criar_Tela(janelaPrincipal, lambda: funcoes.voltarTelaAnterior(telaInicial, telaManual))
 
 
 #Manter a janela aberta 
@@ -79,9 +89,3 @@ janelaPrincipal.mainloop()
 
 #12. E por fim, torná-lo um executável. []
 
-
-
-#Coisas para consertar
-#1. Consertar a criação do menu dropdown quando não existe máquina cadastrada no sistema.
-
-#2. Verificar tratamentos de erros em algumas partes.

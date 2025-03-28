@@ -155,24 +155,18 @@ def criar_botoes_historico(telaConsultaOrcamento, telaAlterarDadosOrcamento, tel
 
 #Criar tabela de itens no historico
 def criar_tabela_de_historico(telaHistorico, df_historico):
-    if len(df_historico) == 0:
-        texto_historico = funcoes.criar_Label(telaHistorico, "Não há registros de orçamentos no histórico.", 0, 1, 20, 20)
+    #Criando o frame para add tabela
+    frame_tabela = ttk.Frame(telaHistorico)
+    frame_tabela.grid(column=0,row=1,padx=20, pady=20)
 
-        return None
-    
-    else:
-        #Criando o frame para add tabela
-        frame_tabela = ttk.Frame(telaHistorico)
-        frame_tabela.grid(column=0,row=1,padx=20, pady=20)
+    #Obter colunas
+    cols = ["Número do orçamento", "Nome da peça", "Cliente", "Data do pedido", "Valor Final"]
 
-        #Obter colunas
-        cols = list(df_historico.columns)
+    #Criar a tabela e adicionar no frame
+    tabela_historico = funcoes.criar_tabela(frame_tabela, cols, df_historico)
+    tabela_historico.pack() 
 
-        #Criar a tabela e adicionar no frame
-        tabela_historico = funcoes.criar_tabela(frame_tabela, cols, df_historico)
-        tabela_historico.pack() 
-
-        return tabela_historico
+    return tabela_historico
 
 
 
@@ -202,7 +196,7 @@ def atualizarTabela(telaHistorico, tabela_historico):
             tabela_historico.insert("", "end", values=row.tolist())
 
     else:
-        criar_tabela_de_historico(telaHistorico, df_historico)
+        tabela_historico = criar_tabela_de_historico(telaHistorico, df_historico)
 
 
 

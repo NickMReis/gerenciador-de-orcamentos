@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import ttk, messagebox
+import json
 
 #Funções de modificação de tela
 def pularProxTela(telaInicial, outraTela):
@@ -10,6 +11,15 @@ def voltarTelaAnterior(telaInicial, telaAtual):
     telaAtual.pack_forget()
     telaInicial.pack(fill="both", expand=True)
 
+
+def podeAbrirTela(telaInicial, outraTela):
+    with open("./data/maquinas.json", "r", encoding="utf-8") as arquivo:
+        maquinas = json.load(arquivo)
+
+    if maquinas:
+        pularProxTela(telaInicial, outraTela)
+    else:
+        messagebox.showerror("Erro ao abrir Novo Orçamento", "Não há máquinas cadastradas. Cadastre uma máquina no sistema para poder realizar um novo orçamento.")
 
 
 #Frames das Janelas
@@ -29,7 +39,7 @@ def criar_campo_de_texto(tela):
     return Entry(tela)
 
 def criar_btn(tela, texto_botao, funcao, column, row, tamanho_padx, tamanho_pady):
-    btn = Button(tela, text=texto_botao, command=funcao)
+    btn = Button(tela, text=texto_botao, command=funcao, width=20, height=2)
     btn.grid(column=column, row=row, padx=tamanho_padx, pady=tamanho_pady)
 
     return btn
