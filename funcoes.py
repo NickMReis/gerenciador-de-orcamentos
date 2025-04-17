@@ -39,13 +39,13 @@ def criar_campo_de_texto(tela):
     return Entry(tela)
 
 def criar_btn(tela, texto_botao, funcao, column, row, tamanho_padx, tamanho_pady):
-    btn = Button(tela, text=texto_botao, command=funcao, width=20, height=2)
+    btn = Button(tela, text=texto_botao, command=funcao)
     btn.grid(column=column, row=row, padx=tamanho_padx, pady=tamanho_pady)
 
     return btn
 
 def criar_btnVoltar(tela, funcao, column, row, tamanho_padx, tamanho_pady, element):
-    btn = Button(tela, text="Voltar para o início", command=funcao)
+    btn = Button(tela, text="Voltar para tela anterior", command=funcao)
     btn.grid(column=column, row=row, padx=tamanho_padx, pady=tamanho_pady, sticky=element)
 
 def criar_tabela(frame_tabela, cols, df):

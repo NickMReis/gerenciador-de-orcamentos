@@ -12,11 +12,22 @@ def criar_Tela(janelaPrincipal, voltar_Tela):
     coluna_btns = 0
     tamanho_padx = 10
     tamanho_pady = 10
+    fonte_titulo = ("Arial", 22)
+    cor_fundo = "#f0f0f0"  # Cor de fundo da tela
 
     telaMaquinas = Frame(janelaPrincipal)
     
     #Botão Voltar para a tela inicial
     btnVoltar = funcoes.criar_btnVoltar(telaMaquinas, voltar_Tela, 0, 0, tamanho_padx, tamanho_pady, "w")
+
+    label_titulo = Label(
+        telaMaquinas,
+        text="Máquinas disponíveis",
+        font=fonte_titulo,
+        bg=cor_fundo,
+        fg="#333"
+    )
+    label_titulo.grid(column=0, row=1, columnspan=2, sticky="n")
 
     #Tabela de máquinas disponíveis
     #Leitura do arquivo de máquinas, transformando em DataFrame.
@@ -48,20 +59,30 @@ def criar_Tela(janelaPrincipal, voltar_Tela):
 
 #Criação do conjuntos de botões
 def criar_botoes_maquinas(telaMaquinas, coluna_btns, tamanho_padx, tamanho_pady, tabela_maquinas):
-    botao_add = funcoes.criar_btn(telaMaquinas, "Adicionar máquina", lambda: add_Maquina(telaMaquinas, tabela_maquinas), coluna_btns, 2, tamanho_padx, tamanho_pady)
+    cor_botao = "#1976d2"
+    cor_texto_botao = "white"
 
-    botao_consultar = funcoes.criar_btn(telaMaquinas, "Consultar máquina", lambda: consultar_Maquina(tabela_maquinas), coluna_btns, 3, tamanho_padx, tamanho_pady)
+    frame_btns_maquinas = funcoes.criar_frame(telaMaquinas)
+    frame_btns_maquinas.grid(column=1, row=2, padx=tamanho_padx, pady=tamanho_pady)
 
-    botao_editar = funcoes.criar_btn(telaMaquinas, "Editar máquina", lambda: editar_Maquina(tabela_maquinas), coluna_btns, 4, tamanho_padx, tamanho_pady)
+    botao_add = funcoes.criar_btn(frame_btns_maquinas, "Adicionar máquina", lambda: add_Maquina(telaMaquinas, tabela_maquinas), coluna_btns, 0, tamanho_padx, tamanho_pady)
+    botao_add.config(fg=cor_texto_botao, bg=cor_botao, width=20, height=2)
 
-    botao_excluir = funcoes.criar_btn(telaMaquinas, "Excluir máquina", lambda: excluir_Maquina(tabela_maquinas), coluna_btns, 5, tamanho_padx, tamanho_pady)
+    botao_consultar = funcoes.criar_btn(frame_btns_maquinas, "Consultar máquina", lambda: consultar_Maquina(tabela_maquinas), coluna_btns, 1, tamanho_padx, tamanho_pady)
+    botao_consultar.config(fg=cor_texto_botao, bg=cor_botao, width=20, height=2)
+
+    botao_editar = funcoes.criar_btn(frame_btns_maquinas, "Editar máquina", lambda: editar_Maquina(tabela_maquinas), coluna_btns, 2, tamanho_padx, tamanho_pady)
+    botao_editar.config(fg=cor_texto_botao, bg=cor_botao, width=20, height=2)
+
+    botao_excluir = funcoes.criar_btn(frame_btns_maquinas, "Excluir máquina", lambda: excluir_Maquina(tabela_maquinas), coluna_btns, 3, tamanho_padx, tamanho_pady)
+    botao_excluir.config(fg=cor_texto_botao, bg=cor_botao, width=20, height=2)
 
 
 
 def criar_tabela_de_maquinas(telaMaquinas, df_maquinas):   
     #Criando um frame para colocar a tabela
     frame_tabela = ttk.Frame(telaMaquinas)
-    frame_tabela.grid(column=0,row=1,padx=20, pady=20)
+    frame_tabela.grid(column=0,row=2,padx=20, pady=20)
 
     # Obtendo os nomes das colunas
     cols = ["ID", "Nome da Máquina", "Preço por Hora"]

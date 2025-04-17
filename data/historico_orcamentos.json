@@ -1,3 +1,38 @@
 [
-
+    {
+        "numeroOrcamento": 1,
+        "dadosOrcamento": {
+            "numeroDesenho": "2046",
+            "nomePeca": "Parafusos Especiais",
+            "quantidadePecas": 40,
+            "cliente": "Loja do Sérgio",
+            "dataPedido": "17/04/2025",
+            "dataValidade": "11/05/2025"
+        },
+        "maquinas": [
+            {
+                "maquina": {
+                    "id": 1,
+                    "nome": "Máquina CNC",
+                    "precoHoraMaquina": 75
+                },
+                "quantidadeHorasMaquina": 12.0
+            }
+        ],
+        "itensOrcamento": {
+            "precoMP": 8520.49,
+            "precoTT": 2729.9,
+            "precoRevestimento": 1504.0,
+            "frete": 200.0,
+            "porcentagemInsumos": 5.0,
+            "porcentagemDesconto": 8.0,
+            "porcentagemImposto": 10.0
+        },
+        "precosOrcamento": {
+            "custoTotal": 14547.11,
+            "valorComDesconto": 13383.34,
+            "valorUnitario": 14870.38,
+            "valorFinal": 594815.2
+        }
+    }
 ]

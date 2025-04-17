@@ -143,13 +143,23 @@ def criarTelaAlterarDadosOrcamento(janelaPrincipal, telaHistorico):
 
 #Criação de botões do histórico de orçamentos
 def criar_botoes_historico(telaConsultaOrcamento, telaAlterarDadosOrcamento, telaHistorico, tabela_historico, framesConsultaOrcamento, texto_resultado, frame_maquinas, frames_btns_maquinas):
-    botao_atualizar = funcoes.criar_btn(telaHistorico, "Atualizar Tabela", lambda: atualizarTabela(telaHistorico, tabela_historico), 0, 3, 10, 10)
+    cor_botao = "#1976d2"
+    cor_texto_botao = "white"
 
-    botao_consultar = funcoes.criar_btn(telaHistorico, "Consultar item", lambda: consultar_item_no_historico(telaConsultaOrcamento, telaHistorico, tabela_historico, framesConsultaOrcamento), 0, 4, 10, 10)
+    frame_btns_historico = funcoes.criar_frame(telaHistorico)
+    frame_btns_historico.grid(column=0, row=3, padx=10, pady=10)
 
-    botao_alterar = funcoes.criar_btn(telaHistorico, "Alterar item no Histórico", lambda: alterar_item_no_historico(telaAlterarDadosOrcamento, telaHistorico, tabela_historico, texto_resultado, frame_maquinas, frames_btns_maquinas), 0, 5, 10, 10)
+    botao_atualizar = funcoes.criar_btn(frame_btns_historico, "Atualizar Tabela", lambda: atualizarTabela(telaHistorico, tabela_historico), 0, 0, 10, 10)
+    botao_atualizar.config(fg=cor_texto_botao, bg=cor_botao, width=20, height=2)
 
-    botao_excluir = funcoes.criar_btn(telaHistorico, "Excluir item no Histórico", lambda: excluir_item_no_historico(tabela_historico), 0, 6, 10, 10)
+    botao_consultar = funcoes.criar_btn(frame_btns_historico, "Consultar item", lambda: consultar_item_no_historico(telaConsultaOrcamento, telaHistorico, tabela_historico, framesConsultaOrcamento), 1, 0, 10, 10)
+    botao_consultar.config(fg=cor_texto_botao, bg=cor_botao, width=20, height=2)
+
+    botao_alterar = funcoes.criar_btn(frame_btns_historico, "Alterar item no Histórico", lambda: alterar_item_no_historico(telaAlterarDadosOrcamento, telaHistorico, tabela_historico, texto_resultado, frame_maquinas, frames_btns_maquinas), 0, 1, 10, 10)
+    botao_alterar.config(fg=cor_texto_botao, bg=cor_botao, width=20, height=2)
+
+    botao_excluir = funcoes.criar_btn(frame_btns_historico, "Excluir item no Histórico", lambda: excluir_item_no_historico(tabela_historico), 1, 1, 10, 10)
+    botao_excluir.config(fg=cor_texto_botao, bg=cor_botao, width=20, height=2)
 
 
 

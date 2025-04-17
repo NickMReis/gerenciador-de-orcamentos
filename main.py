@@ -5,62 +5,82 @@ import telas.telaCalculo as telaCalc
 import telas.telaHistorico as telaHist
 import telas.telaManual as telaMan
 
+# Cores
+cor_fundo = "#f0f4f7"
+cor_titulo = "#0d47a1"
+cor_botao = "#1976d2"
+cor_texto_botao = "white"
 
+# Fontes
+font_titulo = ("Arial", 22, "bold")
+font_texto = ("Arial", 12)
+font_botao = ("Arial", 11, "bold")
 
-#Fontes
-font_titulo = ("Arial",22)
-
-
-
-#Criação da Janela
+# Janela
 janelaPrincipal = Tk()
-janelaPrincipal.title("Calculadora de preço de serviços")
+janelaPrincipal.title("Calculadora de orçamentos")
+janelaPrincipal.configure(bg=cor_fundo)
 
-
-
-#Criação de Frames
-telaInicial = Frame(janelaPrincipal)
+# Tela inicial
+telaInicial = Frame(janelaPrincipal, bg=cor_fundo)
 telaInicial.pack(fill="both", expand=True)
 
+# Título
+label_titulo = Label(telaInicial, text="Calculadora de orçamentos", font=font_titulo, fg=cor_titulo, bg=cor_fundo)
+label_titulo.grid(column=0, row=0, padx=10, pady=(20, 10))
+
+# Orientação
+label_orientacao = Label(
+    telaInicial,
+    text="Clique em um dos botões abaixo. Você pode visualizar os dados das máquinas disponíveis, calcular serviços e ver histórico.",
+    font=font_texto,
+    wraplength=600,
+    justify="center",
+    bg=cor_fundo
+)
+label_orientacao.grid(column=0, row=1, padx=20, pady=(0, 20))
+
+# Frame de botões
+frameButtons = Frame(telaInicial, bg=cor_fundo)
+frameButtons.grid(column=0, row=2, padx=10, pady=10)
+
+# Função de botão estilizado
+def criar_botao_estilizado(parent, texto, comando, linha, coluna):
+    return Button(
+        parent,
+        text=texto,
+        command=comando,
+        font=font_botao,
+        bg=cor_botao,
+        fg=cor_texto_botao,
+        width=25,
+        height=2,
+        relief=RAISED,
+        borderwidth=3,
+        cursor="hand2"
+    ).grid(row=linha, column=coluna, padx=15, pady=15)
 
 
-#Título e Orientação
-label_titulo = Label(telaInicial, text="Calculadora de orçamentos", font=font_titulo)
-label_titulo.grid(column=0, row=0, padx=10, pady=10)
-
-label_orientacao = Label(telaInicial, text="Clique em um dos botões abaixo. Você pode visualizar os dados das máquinas disponíveis, calcular serviços e ver histórico.")
-label_orientacao.grid(column=0, row=1, padx=10, pady=10)
-
-
-#Frame para guardar os botões
-frameButtons = Frame(telaInicial)
-frameButtons.grid(column=0, row=2, padx= 10, pady=10)
-
-#Botões
-#Importante para entender: o termo command=lambda: funcoes.funcao() é para garantir a execução da função apenas quando clicar no botão e permitir a passagem de argumentos para as funções no arquivo funcoes.py
-botao_maquinas = funcoes.criar_btn(frameButtons, "Visualizar máquinas", lambda: funcoes.pularProxTela(telaInicial, telaMaquinas), 0, 0, 10, 10)
-
-botao_calculo = funcoes.criar_btn(frameButtons, "Novo orçamento", lambda: funcoes.podeAbrirTela(telaInicial, telaCalculo), 1, 0, 10, 10)
-
-botao_manualInstrucoes = funcoes.criar_btn(frameButtons, "Manual de uso do software", lambda: funcoes.pularProxTela(telaInicial, telaManual), 0, 1, 10, 10)
-
-botao_historico = funcoes.criar_btn(frameButtons, "Ver orçamentos", lambda: funcoes.pularProxTela(telaInicial, telaHistorico), 1, 1, 10, 10) 
-
-"""
-Importante ressaltar que eu aumentei o width e height dos botões do código.
-Depois adaptar cada tamanho de botão para cada caso e tela.
-"""
+# Botões
+criar_botao_estilizado(frameButtons, "Visualizar máquinas", lambda: funcoes.pularProxTela(telaInicial, telaMaquinas), 0, 0)
+criar_botao_estilizado(frameButtons, "Novo orçamento", lambda: funcoes.podeAbrirTela(telaInicial, telaCalculo), 0, 1)
+criar_botao_estilizado(frameButtons, "Manual de uso do software", lambda: funcoes.pularProxTela(telaInicial, telaManual), 1, 0)
+criar_botao_estilizado(frameButtons, "Ver orçamentos", lambda: funcoes.pularProxTela(telaInicial, telaHistorico), 1, 1)
 
 
-#Chamada de telaMaquinas, telaCalculo e telaHistorico
+# Telas secundárias
 telaMaquinas = telaMaq.criar_Tela(janelaPrincipal, lambda: funcoes.voltarTelaAnterior(telaInicial, telaMaquinas))
 telaHistorico = telaHist.criar_Tela(janelaPrincipal, lambda: funcoes.voltarTelaAnterior(telaInicial, telaHistorico))
 telaCalculo = telaCalc.criar_Tela(janelaPrincipal, lambda: funcoes.voltarTelaAnterior(telaInicial, telaCalculo))
 telaManual = telaMan.criar_Tela(janelaPrincipal, lambda: funcoes.voltarTelaAnterior(telaInicial, telaManual))
 
 
-#Manter a janela aberta 
+labelAvisoTeste = funcoes.criar_Label(telaInicial, "AVISO: Este programa ainda está na versão de teste. Caso encontre falhas no sistema, comunicar ao criador.", 0, 3, 5, 5)
+
+
+# Loop principal
 janelaPrincipal.mainloop()
+
 
 
 
