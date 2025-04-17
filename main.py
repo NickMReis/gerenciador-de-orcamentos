@@ -103,9 +103,9 @@ janelaPrincipal.mainloop()
 
 #9. Depois de tudo pronto, ver como criar um banco de dados com o Firebase, caso seja necessário (se for um sistema para mais de um computador, se não, apenas um banco dentro do próprio arquivo json do software será necessário). []
 
-#10. Criar uma tela contendo um manual para uso do programa. []
+#10. Criar uma tela contendo um manual para uso do programa. [✔]
 
-#11. Definir estilos para deixar o programa apresentável. []
+#11. Definir estilos para deixar o programa apresentável. [✔]
 
 #12. E por fim, torná-lo um executável. []
 
